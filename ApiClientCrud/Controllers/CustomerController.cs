@@ -29,32 +29,43 @@ namespace ApiClientCrud.Controllers
         [HttpPost]
         public IActionResult Create(Customer customer) 
         { 
+            apiGateway.CreateCustomer(customer);
+
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(int id) 
         {
             Customer customer = new Customer();
+            customer = apiGateway.GetCustomer(id);
+
             return View(customer);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Customer customer = new Customer();
+            Customer customer;
+            customer = apiGateway.GetCustomer(id);
             return View(customer);
         }
 
         [HttpPost]
         public IActionResult Edit(Customer customer)
         {
+            apiGateway.UpdateCustomer(customer);
             return RedirectToAction("index");
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            Customer customer = new Customer();
+            Customer customer;
+
+            customer = apiGateway.GetCustomer(id);
+
+           
+
             return View(customer);
         }
 
@@ -62,6 +73,7 @@ namespace ApiClientCrud.Controllers
 
         public IActionResult Delete(Customer customer)
         {
+            apiGateway.DeleteCustomer(customer.id);
             return RedirectToAction("index");
         }
 
